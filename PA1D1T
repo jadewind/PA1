@@ -1,41 +1,16 @@
-### from https://psychwire.wordpress.com/2011/06/03/merge-all-files-in-a-directory-using-r-into-a-single-dataframe/
-## or 1.  to test.............
-#dataset<- do.call("rbind",lapply(file_list,FUN=function(files){
-#	read.table(files,header+TRUE,sep=",")
-#}))
-
 ## 1. set directory to specdata
 setwd("specdata/") 
 
 ## 2. collect list of files in specdata
 file_list <- list.files() 
 
-## or 2. list files in another directory
-#file_list <- list.files("E:/r tests/specdata") 
-
 ## 3. merge datasets
-#for (file in file_list){
-       
-  # if the merged dataset doesn't exist, create it
-#  if (!exists("dataset")){
-#    dataset <- read.table(file, header=TRUE, sep=",")
-#  }
-   
-  # if the merged dataset does exist, append to it
-#  else if (exists("dataset")){
-#    temp_dataset <-read.table(file, header=TRUE, sep=",")
-#    dataset<-rbind(dataset, temp_dataset)
-#    rm(temp_dataset)
-#  }
- 
-#}
-## or 3. faster?
 dataset <- do.call("rbind",lapply(file_list,
 FUN=function(files){read.table(files,
 header=TRUE, sep=",")}))
 
-
-## 4. get mean for first demo 4.064 (why different from demo?)
+## 4. get mean for first demo 4.064
 s<-dataset[which(dataset$ID<11&!is.na(dataset$sulfate)),]
 smean<-mean(s[,2])
 smean
+
