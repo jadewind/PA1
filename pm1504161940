@@ -1,0 +1,29 @@
+pm<-function(directory,pollutant,id=1:332){
+## 1. record initial wd
+initwd<-getwd()
+
+## 2. change wd to x
+setwd(directory)
+
+## 3. collect list of files in specdata
+file_list <- list.files() 
+
+## 4. merge datasets
+dataset <- do.call("rbind",lapply(file_list,
+FUN=function(files){read.table(files,
+header=TRUE, sep=",")}))
+
+## 5. get mean for first demo 4.064
+
+# subset id
+s1<-dataset[which(dataset$ID== id)]
+
+s2<-s1[which(s1$pollutant)]
+
+smean<-mean(s2[,2])
+smean
+setwd(iniwd)
+rm(list=ls())
+}
+pm("specdata","sulfate",1)
+
